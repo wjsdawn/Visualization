@@ -34,7 +34,7 @@ export default {
     mapboxgl.accessToken = 'pk.eyJ1Ijoid2pzMjIyIiwiYSI6ImNrdmdvOHQ2bDJiZmQydnQyZzJwajloam8ifQ.H0JOuWJGAgpplvEraMnhDQ'; //这里请换成自己的token
     var map = new mapboxgl.Map({
       container: 'container', // container id 绑定的组件的id
-      style: 'mapbox://styles/mapbox/streets-v11', //地图样式，可以使用官网预定义的样式,也可以自定义
+      style: 'mapbox://styles/mapbox/dark-v10', //地图样式，可以使用官网预定义的样式,也可以自定义
       center: [104.05878,30.50994], // 初始坐标系，这个是南京建邺附近
       zoom: 15,     // starting zoom 地图初始的拉伸比例
       pitch: 0,  //地图的角度，不写默认是0，取值是0-60度，一般在3D中使用
