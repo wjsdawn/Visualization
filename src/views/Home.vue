@@ -1,7 +1,16 @@
 <template>
   <div id="index">
       <dv-full-screen-container class="bg">
-             <mapVisualization/>
+          <div class="top">
+              <view_1/>
+              <view_2/>
+              <view_3/>
+          </div>
+          <div class="bottom">
+              <view_4/>
+              <mapVisualization/>
+              <view_5/>
+          </div>
       </dv-full-screen-container>
 
   </div>
@@ -12,10 +21,19 @@ import {AxiosInstance as axios} from "axios";
 import mapboxgl from 'mapbox-gl'
 import MapboxLanguage  from '@mapbox/mapbox-gl-language'
 import mapVisualization from './mapVisualization.vue'
-
+import view_1 from "./view_1";
+import view_2 from "./view_2";
+import view_3 from "./view_3";
+import view_4 from "./view_4";
+import view_5 from "./view_5";
 export default {
   components:{
-    mapVisualization,
+      mapVisualization,
+      view_1,
+      view_2,
+      view_3,
+      view_4,
+      view_5
   },
   data(){
     return{

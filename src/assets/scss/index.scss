@@ -11,5 +11,13 @@
     background-position: center center;
     display: flex;
     flex-direction: column;
+    .top{
+      display: flex;
+      flex: 1;
+    }
+    .bottom{
+      display: flex;
+      flex: 1.2;
+    }
   }
 }
