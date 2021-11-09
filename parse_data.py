@@ -1,5 +1,6 @@
 import pymongo
 import pandas
+import pickle
 
 origin_destination = "./public/data/order-uniq-20180501.txt"
 route_file = "./public/data/gps-20180501.txt"
@@ -22,7 +23,7 @@ class Car:
             "name": self.name,
             "begin_pos": b_pos,
             "end_pos": e_pos,
-            "route": self.route.T.to_json()
+            "route": pickle.dumps(self.route)
         }
         return data
 
