@@ -1,22 +1,14 @@
 <template>
-  <div id="index">
-      <dv-full-screen-container class="bg">
-          <div class="top">
-              <view_1/>
-              <view_2/>
-              <view_3/>
-          </div>
-          <div class="middle">
-              <view_4/>
-              <mapVisualization/>
-              <view_5/>
-          </div>
-          <div class="bottom">
-            <div></div>
-          </div>
-      </dv-full-screen-container>
-
-  </div>
+    <el-container id="index">
+        <el-header>Header</el-header>
+        <el-container>
+            <el-aside width="200px">Aside</el-aside>
+            <el-container>
+                <el-main><mapVisualization/></el-main>
+                <el-footer>Footer</el-footer>
+            </el-container>
+        </el-container>
+    </el-container>
 </template>
 
 <script>

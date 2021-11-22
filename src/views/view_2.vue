@@ -14,8 +14,6 @@
 </script>
 <style lang="scss">
     .view_2{
-        border-width: 1px;
-        border-style: solid;
         flex: 1;
     }
 </style>
