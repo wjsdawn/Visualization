@@ -6,10 +6,13 @@
               <view_2/>
               <view_3/>
           </div>
-          <div class="bottom">
+          <div class="middle">
               <view_4/>
               <mapVisualization/>
               <view_5/>
+          </div>
+          <div class="bottom">
+            <div></div>
           </div>
       </dv-full-screen-container>
 
@@ -41,15 +44,15 @@ export default {
     }
   },
   mounted() {
+      this.getData()
   },
   methods:{
     getData(){
-
-      // this.axios.post('http://127.0.0.1:5000/msg').then(res=>{
-      //   let message = res.data.msg
-      //   this.serverResponse = message
-      //   // alert('success'+res.status + ',' + res.data + ',' + message)
-      // });
+      this.axios.post('http://127.0.0.1:5000/send_test').then(res=>{
+        let message = res.data.msg
+        this.serverResponse = message
+        console.log(res.data)
+      });
     }
   }
 }

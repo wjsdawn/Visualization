@@ -13,11 +13,15 @@
     flex-direction: column;
     .top{
       display: flex;
-      flex: 1;
+      flex: 0.5;
+    }
+    .middle{
+      display: flex;
+      flex: 1.5;
     }
     .bottom{
       display: flex;
-      flex: 1.2;
+      flex: 0.5;
     }
   }
 }
