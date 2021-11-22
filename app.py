@@ -39,5 +39,22 @@ def getMsg():
     return jsonify(response)
 
 
+@app.route('/send_test', methods=['GET', 'POST'])
+@cross_origin()
+def send_test():
+    data = {}
+    response = {}
+    coll = collection.find()
+    for item in coll:
+        df = pickle.loads(item["route"])
+        arr_point = df.to_json(orient="values")
+        data['name'] = item['name']
+        data['begin_pos'] = item['begin_pos']
+        data['end_pos'] = item['end_pos']
+        data['route'] = arr_point
+        response[item['name']] = data
+    return jsonify(response)
+
+
 if __name__ == '__main__':
     app.run()
