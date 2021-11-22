@@ -16,18 +16,20 @@ def hello_world():
     return 'Hello World!'
 
 
-@app.route('/send_data')
+@app.route('/send_data', methods=['GET', 'POST'])
+@cross_origin()
 def send_data():
     coll = collection.find_one()
     df = pickle.loads(coll["route"])
-    arr_point = df.to_json(orient="values")
+    route = df.loc[:, 2:3]
+    arr_point = route.to_json(orient="values")
     data = {
         "id": coll["name"],
         "begin_pos": coll["begin_pos"],
         "end_pos": coll["end_pos"],
         "route": arr_point
     }
-    return data
+    return jsonify(data)
 
 
 @app.route('/msg', methods=['GET', 'POST'])
