@@ -74,15 +74,10 @@ export default {
 </script>
 <style lang="scss">
 .view_1 {
-  border-width: 1px;
-  border-style: solid;
   flex: 1;
 }
 #map {
-  width: 95%;
-  height: 95%;
-  margin-left: 2%;
-  margin-right: 2%;
-  padding-top: 2%;
+  width: 100%;
+  height: 100%;
 }
 </style>
