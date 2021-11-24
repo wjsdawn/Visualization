@@ -4,7 +4,10 @@
         <el-container>
             <el-aside width="200px">Aside</el-aside>
             <el-container>
-                <el-main><mapVisualization/></el-main>
+                <el-main>
+                    <mapVisualization/>
+<!--                    <view_2/>-->
+                </el-main>
                 <el-footer>Footer</el-footer>
             </el-container>
         </el-container>
@@ -32,20 +35,30 @@ export default {
   },
   data(){
     return{
+      heatSource:{},
       serverResponse:String
     }
   },
   mounted() {
-      this.getData()
+      // this.getData()
+      // this.getData1()
   },
   methods:{
     getData(){
       this.axios.post('http://127.0.0.1:5000/send_test').then(res=>{
-        let message = res.data.msg
-        this.serverResponse = message
-        console.log(res.data)
+          this.heatSource['type'] = "FeatureCollection"
+          this.heatSource['features'] = res.data
+          console.log(res.data)
       });
-    }
+    },
+      getData1(){
+          this.axios.post('http://127.0.0.1:5000/msg').then(res=>{
+              this.heatSource['type'] = "FeatureCollection"
+              this.heatSource['features'] = res.data
+              // console.log(res.data)
+              console.log(this.heatSource)
+          });
+      }
   }
 }
 </script>
