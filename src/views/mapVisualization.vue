@@ -41,6 +41,8 @@
                 return new Promise((resolve,reject) =>{
                     this.axios.post('http://127.0.0.1:5000/send_point', {"time":this.time}).then(res=>{
                         this.heatSource = res.data
+                        this.$store.commit('change', {start:7,end:10})
+                        console.log(this.$store.state.time)
                         console.log("数据读取成功")
                         resolve(this.heatSource)
                     });
