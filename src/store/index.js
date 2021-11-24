@@ -5,7 +5,7 @@ export default createStore({
     time:{}
   },
   mutations: {
-    change(state,msg){
+    ChangeTime(state,msg){
       state.time['start'] = msg.start
       state.time['end'] = msg.end
     }

@@ -1,14 +1,15 @@
 <template>
     <el-container id="index">
-        <el-header>Header</el-header>
+        <el-header class="top">Header</el-header>
         <el-container>
-            <el-aside width="200px">Aside</el-aside>
+            <el-aside width="200px" class="aside">Aside</el-aside>
             <el-container>
-                <el-main>
+                <el-main class="main">
                     <mapVisualization/>
-<!--                    <view_2/>-->
                 </el-main>
-                <el-footer>Footer</el-footer>
+                <el-footer class="bottom">
+                    <slider/>
+                </el-footer>
             </el-container>
         </el-container>
     </el-container>
@@ -23,7 +24,7 @@ import view_1 from "./view_1";
 import view_2 from "./view_2";
 import view_3 from "./view_3";
 import view_4 from "./view_4";
-import view_5 from "./view_5";
+import slider from "./slider";
 export default {
   components:{
       mapVisualization,
@@ -31,7 +32,7 @@ export default {
       view_2,
       view_3,
       view_4,
-      view_5
+      slider
   },
   data(){
     return{
