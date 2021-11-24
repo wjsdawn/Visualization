@@ -1,8 +1,11 @@
-from flask import Flask
+from ast import literal_eval
+
+from flask import Flask, request, render_template
 from flask import jsonify
 from flask_cors import CORS, cross_origin
 import pymongo
 import pickle
+import pandas as pd
 
 client = pymongo.MongoClient(host='localhost', port=27017)
 db = client.CarRoute
@@ -38,25 +41,32 @@ def getMsg():
     response = {
         'msg': "hello"
     }
-    return jsonify(response)
+    return response
 
 
 @app.route('/send_test', methods=['GET', 'POST'])
 @cross_origin()
 def send_test():
-    data = {}
     response = {}
-    coll = collection.find()
-    for item in coll:
-        df = pickle.loads(item["route"])
-        arr_point = df.to_json(orient="values")
-        data['name'] = item['name']
-        data['begin_pos'] = item['begin_pos']
-        data['end_pos'] = item['end_pos']
-        data['route'] = arr_point
-        response[item['name']] = data
-    return jsonify(response)
+    features = []
+    data = pd.read_table('output.txt', header=None, encoding='gb2312', sep=',')
+    for name, time, x, y in zip(data[0], data[1], data[2], data[3]):
+        features.append({'type': 'Feature',
+                         'properties': {'id': name, 'time': time},
+                         'geometry': {'type': 'Point', 'coordinates': [x, y]}
+                         })
+    response = {'type': 'FeatureCollection', 'features': features}
+    # df = pd.DataFrame(response)
+    # df.to_json('test.txt')
+    rd = {'type': 'FeatureCollection', 'features': [features[1]]}
+    return rd
 
+
+@app.route('/send_point', methods=['GET', 'POST'])
+@cross_origin()
+def sendGoeJson():
+    print(request.get_json())
+    return jsonify({})
 
 if __name__ == '__main__':
     app.run()
