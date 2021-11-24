@@ -63,7 +63,7 @@ export default {
           },
           paint: {
             "line-color": "#888",
-            "line-width": 8,
+            "line-width": 1,
           },
         });
       });
