@@ -4,7 +4,8 @@
         <el-container>
             <el-aside width="200px">Aside</el-aside>
             <el-container>
-                <el-main><mapVisualization/></el-main>
+                <!-- <el-main><mapVisualization/></el-main> -->
+                <el-main><view1/></el-main>
                 <el-footer>Footer</el-footer>
             </el-container>
         </el-container>
@@ -16,7 +17,7 @@ import {AxiosInstance as axios} from "axios";
 import mapboxgl from 'mapbox-gl'
 import MapboxLanguage  from '@mapbox/mapbox-gl-language'
 import mapVisualization from './mapVisualization.vue'
-import view_1 from "./view_1";
+import view1 from "./view_1.vue";
 import view_2 from "./view_2";
 import view_3 from "./view_3";
 import view_4 from "./view_4";
@@ -24,11 +25,11 @@ import view_5 from "./view_5";
 export default {
   components:{
       mapVisualization,
-      view_1,
+      view1,
       view_2,
       view_3,
       view_4,
-      view_5
+      view_5,
   },
   data(){
     return{
@@ -36,7 +37,7 @@ export default {
     }
   },
   mounted() {
-      this.getData()
+      //this.getData()
   },
   methods:{
     getData(){
