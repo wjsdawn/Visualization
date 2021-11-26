@@ -23,12 +23,17 @@
         methods:{
             change(event){
                 this.$store.commit('ChangeTime', {start:event[0],end:event[1]})
+                // console.log(this.$store.state.time)
             }
+        },
+        mounted() {
+            this.$store.commit('ChangeTime', {start:0,end:8})
         }
 
 
     }
 </script>
 <style lang="scss">
-
+    .slider{
+    }
 </style>
