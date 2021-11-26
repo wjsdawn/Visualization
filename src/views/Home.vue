@@ -12,9 +12,7 @@
         <el-container>
             <el-aside width="200px" class="aside">Aside</el-aside>
             <el-container>
-                <el-main><mapVisualization/></el-main>
                 <!-- <el-main><view1/></el-main> -->
-                <el-footer>Footer</el-footer>
                 <el-main class="main">
                     <mapVisualization/>
                 </el-main>
