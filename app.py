@@ -6,6 +6,7 @@ from flask_cors import CORS, cross_origin
 import pymongo
 import pickle
 import pandas as pd
+import time as tm
 
 client = pymongo.MongoClient(host='localhost', port=27017)
 db = client.CarRoute
@@ -65,8 +66,22 @@ def send_test():
 @app.route('/send_point', methods=['GET', 'POST'])
 @cross_origin()
 def sendGoeJson():
-    print(request.get_json())
-    return jsonify({})
+    features = []
+    # 将时间匹配的数据返回前端
+    data = pd.read_table('output.txt', header=None, encoding='gb2312', sep=',')
+    for name, time, x, y in zip(data[0], data[1], data[2], data[3]):
+        if (tm.localtime(time).tm_hour > request.get_json()['start']) and (
+                tm.localtime(time).tm_hour < request.get_json()['end']):
+            features.append({'type': 'Feature',
+                             'properties': {'id': name, 'time': time},
+                             'geometry': {'type': 'Point', 'coordinates': [x, y]}
+                             })
+    response = {'type': 'FeatureCollection', 'features': features}
+    # df = pd.DataFrame(response)
+    # df.to_json('test.txt')
+    print(len(features))
+    return response
+
 
 if __name__ == '__main__':
     app.run()
