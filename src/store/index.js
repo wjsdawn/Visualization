@@ -2,7 +2,7 @@ import { createStore } from 'vuex'
 
 export default createStore({
   state: {
-    dd:0,
+    map_status:0,
     time:{
       start:0,
       end:8
@@ -12,7 +12,9 @@ export default createStore({
     ChangeTime(state,msg){
       state.time['start'] = msg.start
       state.time['end'] = msg.end
-      state.dd = state.dd + 1
+    },
+    ChangeMapStatue(state,msg){
+      state.map_status = msg
     }
 
   },

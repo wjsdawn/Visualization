@@ -1,11 +1,16 @@
 <template>
-    <div id="container"></div>
+    <div id="container">
+        <el-icon class="is-loading" color="white" size="100px" v-show="this.$store.state.map_status==1">
+            <loading />
+        </el-icon>
+    </div>
 </template>
 
 <script>
     import mapboxgl from 'mapbox-gl'
     import MapboxLanguage  from '@mapbox/mapbox-gl-language'
     import { saveAs } from 'file-saver';
+    import {Loading} from "@element-plus/icons";
     export default {
         data(){
             return{
@@ -16,21 +21,26 @@
         },
         watch:{
             "$store.state.time.start"(){
+                this.$store.commit("ChangeMapStatue",1)
                 this.getHeatSource().then(res=>{
                     this.map.removeLayer("carPoint-heat")
                     this.map.removeSource('carPoint')
                     this.drawHeat(this.map,res)
+                    this.$store.commit("ChangeMapStatue",0)
                 })
             },
             "$store.state.time.end"(){
+                this.$store.commit("ChangeMapStatue",1)
                 this.getHeatSource().then(res=>{
                     this.map.removeLayer("carPoint-heat")
                     this.map.removeSource('carPoint')
                     this.drawHeat(this.map,res)
+                    this.$store.commit("ChangeMapStatue",0)
                 })
             }
         },
-        computed:{
+        components:{
+            [Loading.name]:Loading,
         },
         mounted() {
             mapboxgl.accessToken = 'pk.eyJ1Ijoid2pzMjIyIiwiYSI6ImNrdmdvOHQ2bDJiZmQydnQyZzJwajloam8ifQ.H0JOuWJGAgpplvEraMnhDQ'; //这里请换成自己的token
@@ -45,13 +55,11 @@
             });
             var language = new MapboxLanguage({ defaultLanguage: "zh-Hans" });
             this.map.addControl(language);
-
-            // console.log(res)
-            // this.drawHeat(map)
+            this.$store.commit("ChangeMapStatue",1)
             this.getHeatSource().then(res=>{
                 this.drawHeat(this.map,res)
+                this.$store.commit("ChangeMapStatue",0)
             })
-
         },
         methods:{
             async getHeatSource(){
@@ -125,6 +133,9 @@
     #container{
         width: 98%;
         height: 98%;
-        padding: 0;
+        position: relative;
+        .is-loading{
+            position: absolute;
+        }
     }
 </style>
