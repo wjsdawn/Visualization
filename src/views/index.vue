@@ -1,7 +1,7 @@
 <template>
     <mapVisualization/>
     <div class="header">
-        <h1 class="header-title">大屏数据可视化模板</h1>
+        <h1 class="header-title">交通</h1>
     </div>
     <div class="wrapper">
         <div class="content">
@@ -9,6 +9,7 @@
                 <div class="xpanel-wrapper xpanel-wrapper-40">
                     <div class="xpanel xpanel-l-t">
                         <div class="title"></div>
+                        <pie/>
                     </div>
                 </div>
                 <div class="xpanel-wrapper xpanel-wrapper-60">
@@ -51,9 +52,13 @@
 </template>
 <script>
     import mapVisualization from "./mapVisualization";
+    import slider from "./slider";
+    import pie from "../components/Pie"
     export default {
         components:{
-            mapVisualization
+            mapVisualization,
+            slider,
+            pie
         },
         data(){
           return{

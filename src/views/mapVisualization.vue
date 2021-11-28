@@ -71,6 +71,10 @@
                         // console.log(this.$store.state.time)
                         console.log("数据读取成功")
                         resolve(this.heatSource)
+                        this.axios.post('http://127.0.0.1:5000/pie').then(r=>{
+                            this.$store.commit('ChangeTimeJson',r)
+                            this.$store.commit('ChangePieFlag')
+                        })
                     });
                 })
 
