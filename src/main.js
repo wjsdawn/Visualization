@@ -3,7 +3,7 @@ import { createApp } from 'vue'
 import router from './router'
 import store from './store'
 import axios from "axios";
-import Home from './views/Home';
+import Home from './views/index';
 import VueAxios from "vue-axios";
 import './assets/scss/style.scss';
 import ElementPlus from 'element-plus'

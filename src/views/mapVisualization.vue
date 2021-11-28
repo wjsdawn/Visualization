@@ -1,4 +1,5 @@
 <template>
+
     <div id="container">
         <el-icon class="is-loading" color="white" size="100px" v-show="this.$store.state.map_status==1">
             <loading />
@@ -131,9 +132,10 @@
 
 <style lang="scss">
     #container{
-        width: 98%;
-        height: 98%;
-        position: relative;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        z-index: 1;
         .is-loading{
             position: absolute;
         }
