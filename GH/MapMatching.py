@@ -6,14 +6,8 @@ import requests
 from requests import RequestException
 import Database
 
-Base = {
-    'key_path': './util/user_key'
-}
-
-
-def read_key():
-    key_path = Base['key_path']
-    with open(key_path, 'r', encoding='utf-8') as f:
+def read_key(filename):
+    with open(filename, 'r', encoding='utf-8') as f:
         key = f.read()
         return key
 
@@ -34,6 +28,7 @@ def parse_json(content_json):
     """  解析json函数 """
     result_json = json.loads(content_json)
     return result_json
+
 
 # arr坐标点数组
 def request_post(url, data):
@@ -61,23 +56,23 @@ def get_matching_points(points):
     arr_points = route.to_json(orient="values")
     return arr_points
 
-def test():
-    coll = Database.get_coll()
-    data = coll.find_one()
-    df = pickle.loads(data["route"])
-    arr_point = df.to_json(orient="values")
-    arr = json.loads(arr_point)
-
-    body = {
-        'ak': read_key(),
-        'point_list': create_point_json(arr),
-        'rectify_option': "need_mapmatch:1|transport_mode:driving|denoise_grade:1|vacuate_grade:1",
-        'supplement_mode': "driving",
-        'coord_type_output': "gcj02"
-    }
-    url = "https://api.map.baidu.com/rectify/v1/track?"
-    res_json = request_post(url, body)
-    get_matching_points(res_json)
-
-
-test()
+# def test():
+#     coll = Database.get_coll()
+#     data = coll.find_one()
+#     df = pickle.loads(data["route"])
+#     arr_point = df.to_json(orient="values")
+#     arr = json.loads(arr_point)
+#
+#     body = {
+#         'ak': read_key(),
+#         'point_list': create_point_json(arr),
+#         'rectify_option': "need_mapmatch:1|transport_mode:driving|denoise_grade:1|vacuate_grade:1",
+#         'supplement_mode': "driving",
+#         'coord_type_output': "gcj02"
+#     }
+#     url = "https://api.map.baidu.com/rectify/v1/track?"
+#     res_json = request_post(url, body)
+#     get_matching_points(res_json)
+#
+#
+# test()
