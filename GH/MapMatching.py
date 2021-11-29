@@ -59,7 +59,7 @@ def get_matching_points(points):
     res = points['points']
     df = pandas.DataFrame(res)
     print(df)
-    route = df.loc[:, ['longitude','latitude']]
+    route = df.loc[:, ['longitude', 'latitude']]
     arr_points = route.to_json(orient="values")
     return arr_points
 
@@ -72,7 +72,7 @@ def get_car_msg(points):
     return json.loads(arr_points)
 
 
-def matching_street(arr_points):
+def matching_street_name(arr_points):
     url = "https://api.map.baidu.com/reverse_geocoding/v3/?"
     for point in arr_points:
         data = {'ak': read_key("../public/user_key"), 'output': 'json', 'coordtype': 'gcj02ll',
@@ -81,7 +81,7 @@ def matching_street(arr_points):
         res_json = response.json()
         point.append(res_json['result']['formatted_address'])
     return arr_points
-#
+
 #
 # def test():
 #     coll = Database.get_coll()
