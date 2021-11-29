@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import mapboxgl from "mapbox-gl";
-import MapboxLanguage from "@mapbox/mapbox-gl-language";
+// import mapboxgl from "mapbox-gl";
+// import MapboxLanguage from "@mapbox/mapbox-gl-language";
 import axios from "axios";
 const FileSaver = require("file-saver");
 export default {

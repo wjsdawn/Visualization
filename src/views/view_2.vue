@@ -8,8 +8,8 @@
 </template>
 
 <script>
-    import mapboxgl from 'mapbox-gl'
-    import MapboxLanguage  from '@mapbox/mapbox-gl-language'
+    // import mapboxgl from 'mapbox-gl'
+    // import MapboxLanguage  from '@mapbox/mapbox-gl-language'
     export default {
         data(){
 

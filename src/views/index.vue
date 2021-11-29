@@ -1,5 +1,6 @@
 <template>
-    <mapVisualization/>
+<!--    <mapVisualization/>-->
+    <trips/>
     <div class="header">
         <h1 class="header-title">交通</h1>
     </div>
@@ -55,12 +56,14 @@
     import slider from "./slider";
     import pie from "../components/Pie"
     import timeSelect from "../components/TimeSelect"
+    import trips from "../components/TripsLayer"
     export default {
         components:{
             mapVisualization,
             slider,
             pie,
-            timeSelect
+            timeSelect,
+            trips
         },
         data(){
           return{

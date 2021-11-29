@@ -8,8 +8,6 @@
 </template>
 
 <script>
-    import mapboxgl from 'mapbox-gl'
-    import MapboxLanguage  from '@mapbox/mapbox-gl-language'
     import { saveAs } from 'file-saver';
     import {Loading} from "@element-plus/icons";
     export default {
@@ -44,7 +42,7 @@
             [Loading.name]:Loading,
         },
         mounted() {
-            mapboxgl.accessToken = 'pk.eyJ1Ijoid2pzMjIyIiwiYSI6ImNrdmdvOHQ2bDJiZmQydnQyZzJwajloam8ifQ.H0JOuWJGAgpplvEraMnhDQ'; //这里请换成自己的token
+            // mapboxgl.accessToken = 'pk.eyJ1Ijoid2pzMjIyIiwiYSI6ImNrdmdvOHQ2bDJiZmQydnQyZzJwajloam8ifQ.H0JOuWJGAgpplvEraMnhDQ'; //这里请换成自己的token
             this.map = new mapboxgl.Map({
                 container: 'container', // container id 绑定的组件的id
                 style: 'mapbox://styles/mapbox/dark-v10', //地图样式，可以使用官网预定义的样式,也可以自定义
@@ -54,8 +52,8 @@
                 bearing: 0, //地图的初始方向，值是北的逆时针度数，默认是0，即是正北
                 antialias: false, //抗锯齿，通过false关闭提升性能
             });
-            var language = new MapboxLanguage({ defaultLanguage: "zh-Hans" });
-            this.map.addControl(language);
+            // var language = new MapboxLanguage({ defaultLanguage: "zh-Hans" });
+            // this.map.addControl(language);
             this.$store.commit("ChangeMapStatue",1)
             this.getHeatSource().then(res=>{
                 this.drawHeat(this.map,res)

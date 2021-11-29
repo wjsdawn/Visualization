@@ -26,8 +26,7 @@
 
 <script>
 import {AxiosInstance as axios} from "axios";
-import mapboxgl from 'mapbox-gl'
-import MapboxLanguage  from '@mapbox/mapbox-gl-language'
+// import MapboxLanguage  from '@mapbox/mapbox-gl-language'
 import mapVisualization from './mapVisualization.vue'
 import view1 from "./view_1.vue";
 import view_2 from "./view_2";
