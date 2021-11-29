@@ -7,6 +7,7 @@ export default createStore({
       start:0,
       end:8
     },
+    timeFlag:0,
     timeJson:{
 
     },
@@ -16,6 +17,8 @@ export default createStore({
     ChangeTime(state,msg){
       state.time['start'] = msg.start
       state.time['end'] = msg.end
+      state.timeFlag = state.timeFlag + 1
+      console.log(state.timeFlag)
     },
     ChangeMapStatue(state,msg){
       state.map_status = msg
@@ -30,7 +33,6 @@ export default createStore({
     },
     ChangePieFlag(state,msg){
       state.pieFlag = state.pieFlag + 1
-      console.log(state.pieFlag)
     },
   },
   actions: {

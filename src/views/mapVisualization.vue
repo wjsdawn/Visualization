@@ -21,7 +21,7 @@
             }
         },
         watch:{
-            "$store.state.time.start"(){
+            "$store.state.timeFlag"(){
                 this.$store.commit("ChangeMapStatue",1)
                 this.getHeatSource().then(res=>{
                     this.map.removeLayer("carPoint-heat")
@@ -30,15 +30,15 @@
                     this.$store.commit("ChangeMapStatue",0)
                 })
             },
-            "$store.state.time.end"(){
-                this.$store.commit("ChangeMapStatue",1)
-                this.getHeatSource().then(res=>{
-                    this.map.removeLayer("carPoint-heat")
-                    this.map.removeSource('carPoint')
-                    this.drawHeat(this.map,res)
-                    this.$store.commit("ChangeMapStatue",0)
-                })
-            }
+            // "$store.state.time.end"(){
+            //     this.$store.commit("ChangeMapStatue",1)
+            //     this.getHeatSource().then(res=>{
+            //         this.map.removeLayer("carPoint-heat")
+            //         this.map.removeSource('carPoint')
+            //         this.drawHeat(this.map,res)
+            //         this.$store.commit("ChangeMapStatue",0)
+            //     })
+            // }
         },
         components:{
             [Loading.name]:Loading,

@@ -8,7 +8,7 @@
             <div class="col col-l">
                 <div class="xpanel-wrapper xpanel-wrapper-40">
                     <div class="xpanel xpanel-l-t">
-                        <div class="title"></div>
+                        <timeSelect class="title"/>
                         <pie/>
                     </div>
                 </div>
@@ -54,11 +54,13 @@
     import mapVisualization from "./mapVisualization";
     import slider from "./slider";
     import pie from "../components/Pie"
+    import timeSelect from "../components/TimeSelect"
     export default {
         components:{
             mapVisualization,
             slider,
-            pie
+            pie,
+            timeSelect
         },
         data(){
           return{
