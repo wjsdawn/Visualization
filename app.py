@@ -26,8 +26,7 @@ def hello_world():
 def send_data():
     coll = collection.find_one()
     df = pickle.loads(coll["route"])
-    route = df.loc[:, 2:3]
-    arr_point = route.to_json(orient="values")
+    arr_point = df.to_json(orient="values")
     arr = json.loads(arr_point)
 
     body = {
@@ -35,7 +34,7 @@ def send_data():
         'point_list': matcher.create_point_json(arr),
         'rectify_option': "need_mapmatch:1|transport_mode:driving|denoise_grade:1|vacuate_grade:1",
         'supplement_mode': "driving",
-        'coord_type_output': "gcj02"
+        'coord_type_output': "bd09ll"
     }
     url = "https://api.map.baidu.com/rectify/v1/track?"
     res_json = matcher.request_post(url, body)
