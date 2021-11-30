@@ -10,14 +10,112 @@
     export default {
         data(){
             return{
-
+                Tripsdata:[]
             }
         },
         mounted() {
-            this.drwaTrips()
+            this.getSource().then(res=>{
+                this.drwaTrips(res)
+                this.$store.commit("ChangeMapStatue",0)
+            })
+        },
+        watch:{
+            // "$store.state.timeFlag"(){
+            //     this.$store.commit("ChangeMapStatue",1)
+            //     this.getSource().then(res=>{
+            //         this.map.removeLayer("carPoint-heat")
+            //         this.map.removeSource('carPoint')
+            //         this.drawHeat(this.map,res)
+            //         this.$store.commit("ChangeMapStatue",0)
+            //     })
+            // },
         },
         methods:{
-            drwaTrips(){
+            async getSource(){
+                return new Promise((resolve,reject) =>{
+                    this.axios.post('http://127.0.0.1:5000/sendCarsLine', this.$store.state.time).then(res=>{
+                        this.Tripsdata = res.data
+                        console.log("数据读取成功")
+                        resolve(this.Tripsdata)
+                    });
+                })
+
+            },
+            drwaTrips(res){
+                var chart = echarts.init(document.getElementById('Trips'));
+                var carLines = []
+                for(let i in res){
+                    let temp = []
+                    for(let j in res[i]){
+                        let temp2 = []
+                        for(let k in res[i][j]){
+                            temp2.push(res[i][j][k])
+                        }
+                        temp.push(temp2)
+                    }
+                    carLines.push(temp)
+                }
+                var dataLines = carLines.map(function (data,idx) {
+                    let hStep = 150 / (data.length - 1);
+                    return {
+                        coords: data,
+                        lineStyle: {
+                            color: echarts.color.modifyHSL('#5A94DF', Math.round(hStep * idx))
+                        }
+                    };
+                });
+                console.log(dataLines)
+                chart.setOption({
+                    mapbox3D: {
+                        center: [104.040847,30.466655],
+                        zoom: 13,
+                        pitch: 50,
+                        bearing: -10,
+                        style: 'mapbox://styles/mapbox/dark-v9',
+                        postEffect: {
+                            enable: true
+                        }
+                    },
+                    series: [{
+                        type: 'lines3D',
+
+                        coordinateSystem: 'mapbox3D',
+
+                        effect: {
+                            show: true,
+                            constantSpeed: 10,
+                            // trailWidth: 1,
+                            trailLength: 0.3,
+                            // trailColor: [1, 1, 5],
+                            trailOpacity: 1,
+
+                            spotIntensity: 3
+                        },
+
+                        blendMode: 'lighter',
+
+                        polyline: true,
+
+                        lineStyle: {
+                            width: 5,
+                            color: 'rgb(60, 150, 80)',
+                            opacity:  0.2
+                        },
+
+                        data: dataLines
+                    }]
+                });
+
+                window.onresize = chart.resize;
+
+                window.addEventListener('keydown', function () {
+                    chart.dispatchAction({
+                        type: 'lines3DToggleEffect',
+                        seriesIndex: 0
+                    });
+                });
+            },
+            drwaTripsTest(){
 
                 var chart = echarts.init(document.getElementById('Trips'));
                 $.getJSON('lines-bus.json', function (data) {
