@@ -26,26 +26,41 @@ def hello_world():
 def send_data():
     coll = collection.find_one()
     df = pickle.loads(coll["route"])
-    arr_point = df.to_json(orient="values")
-    arr = json.loads(arr_point)
-
-    body = {
-        'ak': matcher.read_key("./public/user_key"),
-        'point_list': matcher.create_point_json(arr),
-        'rectify_option': "need_mapmatch:1|transport_mode:driving|denoise_grade:1|vacuate_grade:1",
-        'supplement_mode': "driving",
-        'coord_type_output': "bd09ll"
-    }
-    url = "https://api.map.baidu.com/rectify/v1/track?"
-    res_json = matcher.request_post(url, body)
-
+    pa_point = df.loc[:,2:3]
+    json_point = pa_point.to_json(orient="values")
+    arr_point = json.loads(json_point)
+    for point in arr_point:
+        point[0] = matcher.gcj02_to_wgs84(point[0], point[1])[0]
+        point[1] = matcher.gcj02_to_wgs84(point[0], point[1])[1]
+    route = json.dumps(arr_point)
+    # body = {
+    #     'ak': matcher.read_key("./public/user_key"),
+    #     'point_list': matcher.create_point_json(arr),
+    #     'rectify_option': "need_mapmatch:1|transport_mode:driving|denoise_grade:1|vacuate_grade:1",
+    #     'supplement_mode': "driving",
+    #     'coord_type_output': "bd09ll"
+    # }
+    # url = "https://api.map.baidu.com/rectify/v1/track?"
+    # res_json = matcher.request_post(url, body)
+    # name = ""
+    # route = ""
+    # ps = pandas.read_csv("./GH/output.txt", delimiter=" ")
+    # group = ps.groupby('id')
+    # for key, value in group:
+    #     name = key
+    #     route = value.loc[:, ['lon', 'lat']].to_json(orient="values")
+    #     break
+    # arr = json.loads(route)
+    # for point in arr:
+    #     point[0] = matcher.gcj02_to_wgs84(point[0], point[1])[0]
+    #     point[1] = matcher.gcj02_to_wgs84(point[0], point[1])[1]
+    # route = json.dumps(arr)
     data = {
         "id": coll["name"],
-        "begin_pos": coll["begin_pos"],
-        "end_pos": coll["end_pos"],
-        "route": matcher.get_matching_points(res_json)
+        "begin_pos": " ",
+        "end_pos": " ",
+        "route": route
     }
-
     return jsonify(data)
 
 
