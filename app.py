@@ -119,5 +119,24 @@ def sendGoeJson():
     return response
 
 
+@app.route('/sendCarsLine', methods=['GET', 'POST'])
+@cross_origin()
+def sendCarsLine():
+    lines = []
+    carLines = []
+    last_name = ''
+    data = pd.read_table('output.txt', header=None, encoding='gb2312', sep=',')
+    for name, time, x, y in zip(data[0], data[1], data[2], data[3]):
+        if (tm.localtime(time).tm_hour >= 3) and (
+                tm.localtime(time).tm_hour <= 6):
+            if (last_name == '') or (last_name != name):
+                last_name = name
+                carLines.append(lines)
+                lines = []
+            lines.append([x, y])
+    del carLines[0]
+    return jsonify(carLines)
+
+
 if __name__ == '__main__':
     app.run()
