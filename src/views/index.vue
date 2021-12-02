@@ -1,6 +1,7 @@
 <template>
 <!--    <mapVisualization/>-->
     <trips/>
+<!--    <TripsLayerBMap/>-->
     <div class="header">
         <h1 class="header-title">交通</h1>
     </div>
@@ -53,6 +54,7 @@
 </template>
 <script>
     import mapVisualization from "./mapVisualization";
+    import TripsLayerBMap from "../components/TriperLayerBMap";
     import slider from "./slider";
     import pie from "../components/Pie"
     import timeSelect from "../components/TimeSelect"
@@ -63,7 +65,8 @@
             slider,
             pie,
             timeSelect,
-            trips
+            trips,
+            TripsLayerBMap
         },
         data(){
           return{

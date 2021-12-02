@@ -34,7 +34,8 @@
             //         this.map.removeLayer("carPoint-heat")
             //         this.map.removeSource('carPoint')
             //         this.drawHeat(this.map,res)
-            //         this.$store.commit("ChangeMapStatue",0)
+            //         this.$store.commit
+            
             //     })
             // }
         },
