@@ -121,11 +121,17 @@ def create_point_json(points):
 
 def get_matching_time_points(points):
     print(points)
-    res = points['points']
-    df = pandas.DataFrame(res)
-    route = df.loc[:, ['loc_time', 'longitude', 'latitude']]
-    arr_points = route.to_json(orient="values")
-    return json.loads(arr_points)
+    try:
+        res = points['points']
+        df = pandas.DataFrame(res)
+        try:
+            route = df.loc[:, ['loc_time', 'longitude', 'latitude']]
+            arr_points = route.to_json(orient="values")
+            return json.loads(arr_points)
+        except KeyError:
+            return None
+    except KeyError:
+        return False
 
 
 def get_matching_points(points):
@@ -137,22 +143,36 @@ def get_matching_points(points):
 
 
 def get_car_msg(points):
-    res = points['points']
-    df = pandas.DataFrame(res)
-    route = df.loc[:, ['loc_time', 'longitude', 'latitude', 'speed', 'direction']]
-    arr_points = route.to_json(orient="values")
-    return json.loads(arr_points)
+    try:
+        res = points['points']
+        df = pandas.DataFrame(res)
+        try:
+            route = df.loc[:, ['loc_time', 'longitude', 'latitude', 'speed', 'direction']]
+            arr_points = route.to_json(orient="values")
+            return json.loads(arr_points)
+        except KeyError:
+            try:
+                route = df.loc[:, ['loc_time', 'longitude', 'latitude']]
+                arr_points = route.to_json(orient="values")
+                return json.loads(arr_points)
+            except KeyError:
+                return None
+    except KeyError:
+        return False
 
 
-def matching_street_name(arr_points):
+def matching_street_name(arr_points,ak):
     url = "https://api.map.baidu.com/reverse_geocoding/v3/?"
     for point in arr_points:
-        data = {'ak': read_key("../public/user_key"), 'output': 'json', 'coordtype': 'gcj02ll',
-                'location': str(point[2]) + "," + str(point[1])}
+        data = {'ak': ak, 'output': 'json', 'coordtype': 'gcj02ll', 'extensions_road': True,
+                'location': str(point[3]) + "," + str(point[2])}
         response = requests.get(url, params=data)
-        res_json = response.json()
-        point.append(res_json['result']['formatted_address'])
-    return arr_points
+        try:
+            res_json = response.json()
+            point.append(res_json['result']['formatted_address'])
+        except KeyError:
+            return False
+    return True
 
 
 # def test():
