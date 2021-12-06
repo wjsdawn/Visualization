@@ -4,7 +4,7 @@ export default createStore({
   state: {
     map_status:0,
     time:{
-      start:0,
+      start:7,
       end:8
     },
     timeFlag:0,

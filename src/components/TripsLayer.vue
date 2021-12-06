@@ -7,6 +7,7 @@
 <script>
     import echarts from 'echarts';
     import "echarts-gl"
+    import *as d3 from 'd3'
     export default {
         data(){
             return{
@@ -20,15 +21,15 @@
             })
         },
         watch:{
-            // "$store.state.timeFlag"(){
-            //     this.$store.commit("ChangeMapStatue",1)
-            //     this.getSource().then(res=>{
-            //         this.map.removeLayer("carPoint-heat")
-            //         this.map.removeSource('carPoint')
-            //         this.drawHeat(this.map,res)
-            //         this.$store.commit("ChangeMapStatue",0)
-            //     })
-            // },
+            "$store.state.timeFlag"(){
+                this.$store.commit("ChangeMapStatue",1)
+                this.getSource().then(res=>{
+                    $("#Trips").removeAttr("_echarts_instance_").empty()
+                    // d3.selectAll("#Trips>*").remove()
+                    this.drwaTrips(res)
+                    this.$store.commit("ChangeMapStatue",0)
+                })
+            },
         },
         methods:{
             async getSource(){
@@ -56,7 +57,7 @@
                     carLines.push(temp)
                 }
                 var dataLines = carLines.map(function (data,idx) {
-                    let hStep = 150 / (data.length - 1);
+                    let hStep = 20 / (data.length - 1);
                     return {
                         coords: data,
                         lineStyle: {
@@ -84,7 +85,7 @@
                         effect: {
                             show: true,
                             constantSpeed: 10,
-                            // trailWidth: 1,
+                            trailWidth: 2,
                             trailLength: 0.3,
                             // trailColor: [1, 1, 5],
                             trailOpacity: 1,
@@ -97,9 +98,9 @@
                         polyline: true,
 
                         lineStyle: {
-                            width: 5,
+                            width: 2,
                             color: 'rgb(60, 150, 80)',
-                            opacity:  0.2
+                            opacity:  0.
                         },
 
                         data: dataLines

@@ -18,7 +18,7 @@
     export default {
         data(){
             return {
-                value:[new Date(2018, 5, 1, 0, 0), new Date(2018, 5, 1, 8, 0)]
+                value:[new Date(2018, 5, 1, 7, 0), new Date(2018, 5, 1, 8, 0)]
             }
         },
         methods:{
