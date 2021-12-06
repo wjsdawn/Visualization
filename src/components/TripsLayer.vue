@@ -1,13 +1,15 @@
 <template>
     <div id="Trips">
-
+        <el-icon class="is-loading" color="white" size="100px" v-show="this.$store.state.map_status==1">
+            <loading />
+        </el-icon>
     </div>
-    <button @click="drwaTrips">123123</button>
 </template>
 <script>
     import echarts from 'echarts';
     import "echarts-gl"
     import *as d3 from 'd3'
+    import {Loading} from "@element-plus/icons";
     export default {
         data(){
             return{
@@ -15,10 +17,14 @@
             }
         },
         mounted() {
+            this.$store.commit("ChangeMapStatue",1)
             this.getSource().then(res=>{
                 this.drwaTrips(res)
                 this.$store.commit("ChangeMapStatue",0)
             })
+        },
+        components:{
+            [Loading.name]:Loading,
         },
         watch:{
             "$store.state.timeFlag"(){
@@ -38,9 +44,12 @@
                         this.Tripsdata = res.data
                         console.log("数据读取成功")
                         resolve(this.Tripsdata)
+                        this.axios.post('http://127.0.0.1:5000/Pie').then(r=>{
+                            this.$store.commit('ChangeTimeJson',r)
+                            this.$store.commit('ChangePieFlag')
+                        })
                     });
                 })
-
             },
             drwaTrips(res){
                 var chart = echarts.init(document.getElementById('Trips'));
@@ -204,5 +213,8 @@
     height: 100%;
     position: absolute;
     z-index: 1;
+}
+.is-loading{
+    position: absolute;
 }
 </style>

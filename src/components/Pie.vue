@@ -19,10 +19,8 @@
                 d3.selectAll("#svg>*").remove()
                 this.drawPie()
             },
-
         },
         mounted() {
-            this.axios.post('http://127.0.0.1:5000/pie').then((res=>{}))
         },
         methods:{
             drawPie(){
@@ -190,7 +188,7 @@
                     .enter()
                     .append('text')
                     .text(function(d) {
-                        return d.data.x
+                        return d.data.y +"---" + (d.data.y / sum * 100).toFixed(2) + '%'
                     })
                     .attr('x', function(d) {
                         return pointEnd.centroid(d)[0]
@@ -219,5 +217,7 @@
 <style>
     .container{
         padding: 0;
+
     }
+
 </style>
