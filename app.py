@@ -12,6 +12,7 @@ import time as tm
 client = pymongo.MongoClient(host='localhost', port=27017)
 db = client.CarRoute
 collection = db.get_collection("cars")
+carPie = {}
 
 app = Flask(__name__)
 
@@ -26,7 +27,7 @@ def hello_world():
 def send_data():
     coll = collection.find_one()
     df = pickle.loads(coll["route"])
-    pa_point = df.loc[:,2:3]
+    pa_point = df.loc[:, 2:3]
     json_point = pa_point.to_json(orient="values")
     arr_point = json.loads(json_point)
     for point in arr_point:
@@ -125,17 +126,29 @@ def sendCarsLine():
     lines = []
     carLines = []
     last_name = ''
-    data = pd.read_table('output.txt', header=None, encoding='gb2312', sep=',')
+    carPie.clear()
+    data = pd.read_table('output_wgs84.txt', header=None, encoding='gb2312', sep=',')
     for name, time, x, y in zip(data[0], data[1], data[2], data[3]):
-        if (tm.localtime(time).tm_hour >= 3) and (
-                tm.localtime(time).tm_hour <= 6):
+        if (tm.localtime(time).tm_hour >= request.get_json()['start']) and (
+                tm.localtime(time).tm_hour < request.get_json()['end']):
             if (last_name == '') or (last_name != name):
+                if str(tm.localtime(time).tm_hour) + ":00~" + str(tm.localtime(time).tm_hour + 1) + ":00" not in carPie:
+                    carPie[str(tm.localtime(time).tm_hour) + ":00~" + str(tm.localtime(time).tm_hour + 1) + ":00"] = 1
+                else:
+                    carPie[str(tm.localtime(time).tm_hour) + ":00~" + str(tm.localtime(time).tm_hour + 1) + ":00"] \
+                        = carPie[str(tm.localtime(time).tm_hour) + ":00~" + str(tm.localtime(time).tm_hour + 1) + ":00"] + 1
                 last_name = name
                 carLines.append(lines)
                 lines = []
             lines.append([x, y])
     del carLines[0]
     return jsonify(carLines)
+
+
+@app.route('/Pie', methods=['GET', 'POST'])
+@cross_origin()
+def sendPieData():
+    return carPie
 
 
 if __name__ == '__main__':
