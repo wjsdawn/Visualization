@@ -8,8 +8,8 @@ import GH.MapMatching as matcher
 pd = pandas.read_csv("./routename.txt", delimiter=' ', encoding='utf-8')
 pd['time'] = pandas.to_datetime(pd['time'], unit='s')
 
-low = datetime(2018, 5, 1, 0, 0, 0)
-high = datetime(2018, 5, 1, 0, 30, 0)
+low = datetime(2018, 4, 30, 16, 0, 0)
+high = datetime(2018, 4, 30, 16, 30, 0)
 
 
 def deliver(plow, phigh, name):
@@ -39,11 +39,14 @@ def deliver(plow, phigh, name):
     res_route = pandas.DataFrame(car_route, columns=['route', 'speed'])
     res_route = res_route.sort_values(by='speed')
     res_route['route'] = res_route['route'].map(lambda x: str(x)[9:]) # 去掉道路中的四川省成都市双流区
-    res_route.to_csv(str(name)+".csv", encoding='utf-8')
+    res_route.to_csv("./30route/"+str(name)+".csv", encoding='utf-8')
     return car_flow
 
-for i in range(1,49):
-    deliver(low, high, i)
-    low = low+timedelta(minutes=30)
-    high = high+timedelta(minutes=30)
+
+# for i in range(1, 49):
+#     print(low)
+#     print(high)
+#     deliver(low, high, i)
+#     low = low+timedelta(minutes=30)
+#     high = high+timedelta(minutes=30)
 

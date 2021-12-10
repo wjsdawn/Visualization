@@ -68,18 +68,16 @@ def send_data():
 @app.route('/routespeed', methods=['GET', 'POST'])
 @cross_origin()
 def routespeed():
+    print(request.get_json())
     data = pandas.read_csv('./GH/route_speed.csv', encoding='utf-8')
     route_name = data['route']
     speed = data['speed']
     arr_name = route_name.to_json(orient="values")
     arr_speed = speed.to_json(orient="values")
-    print(arr_name)
-    print(arr_speed)
     res_json = {
         'route_name': arr_name,
         'route_speed': arr_speed
     }
-    print(res_json)
     return res_json
 
 
@@ -126,7 +124,6 @@ def sendGoeJson():
     response = {'type': 'FeatureCollection', 'features': features}
     # df = pd.DataFrame(response)
     # df.to_json('test.txt')
-    print(len(features))
     return response
 
 
