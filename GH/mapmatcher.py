@@ -6,7 +6,12 @@ import json
 import GH.MapMatching as matcher
 
 pd = pandas.read_csv("./routename.txt", delimiter=' ', encoding='utf-8')
+pd = pd.sort_values(by='time')
+print(pd['time'])
+print(time.localtime(1525104122))
 pd['time'] = pandas.to_datetime(pd['time'], unit='s')
+
+
 
 low = datetime(2018, 4, 30, 16, 0, 0)
 high = datetime(2018, 4, 30, 16, 30, 0)
