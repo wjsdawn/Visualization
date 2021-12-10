@@ -16,7 +16,7 @@
                 </div>
                 <div class="xpanel-wrapper xpanel-wrapper-60">
                     <div class="xpanel xpanel-l-b">
-                        <div class="title"></div>
+                        <traffic></traffic>
                     </div>
                 </div>
             </div>
@@ -59,6 +59,7 @@
     import pie from "../components/Pie"
     import timeSelect from "../components/TimeSelect"
     import trips from "../components/TripsLayer"
+    import traffic from "../components/traffic.vue"
     export default {
         components:{
             mapVisualization,
@@ -66,7 +67,8 @@
             pie,
             timeSelect,
             trips,
-            TripsLayerBMap
+            TripsLayerBMap,
+            traffic
         },
         data(){
           return{
