@@ -65,12 +65,22 @@ def send_data():
     return jsonify(data)
 
 
-@app.route('/test_route', methods=['GET', 'POST'])
+@app.route('/routespeed', methods=['GET', 'POST'])
 @cross_origin()
-def test_route():
-    data = pandas.read_csv('./public/resFile.txt')
-    arr_point = data.to_json(orient='values')
-    return jsonify(arr_point)
+def routespeed():
+    data = pandas.read_csv('./GH/route_speed.csv', encoding='utf-8')
+    route_name = data['route']
+    speed = data['speed']
+    arr_name = route_name.to_json(orient="values")
+    arr_speed = speed.to_json(orient="values")
+    print(arr_name)
+    print(arr_speed)
+    res_json = {
+        'route_name': arr_name,
+        'route_speed': arr_speed
+    }
+    print(res_json)
+    return res_json
 
 
 @app.route('/msg', methods=['GET', 'POST'])
@@ -127,7 +137,7 @@ def sendCarsLine():
     carLines = []
     last_name = ''
     carPie.clear()
-    data = pd.read_table('output_wgs84.txt', header=None, encoding='gb2312', sep=',')
+    data = pd.read_table('output.txt', header=None, encoding='gb2312', sep=',')
     for name, time, x, y in zip(data[0], data[1], data[2], data[3]):
         if (tm.localtime(time).tm_hour >= request.get_json()['start']) and (
                 tm.localtime(time).tm_hour < request.get_json()['end']):

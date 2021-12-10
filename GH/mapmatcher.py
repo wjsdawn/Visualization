@@ -4,7 +4,7 @@ import pandas
 import json
 import GH.MapMatching as matcher
 
-pd = pandas.read_csv("./routename.txt", delimiter=' ')
+pd = pandas.read_csv("./routename.txt", delimiter=' ', encoding='utf-8')
 pd['time'] = pandas.to_datetime(pd['time'], unit='s')
 
 low = datetime(2018, 5, 1, 8, 0, 0)
@@ -19,7 +19,7 @@ def deliver(low, heigth):
     for key, value in group:
         group_route = value.groupby('routename')
         for r_key, r_value in group_route:
-            value['speed'] = pandas.to_numeric(r_value['speed'])
+            # r_value['speed'] = pandas.to_numeric(r_value['speed'])
             aver_speed = r_value['speed'].mean()
             route_name = r_key
             route = [key, route_name, aver_speed]
@@ -37,7 +37,7 @@ def deliver(low, heigth):
 
     res_route = pandas.DataFrame(car_route, columns=['route', 'speed'])
     res_route = res_route.sort_values(by='speed')
-    res_route.to_csv('./route_speed.csv', encoding='GBK')
+    res_route.to_csv('./route_speed.csv', encoding='utf-8')
     return car_flow
 
 
