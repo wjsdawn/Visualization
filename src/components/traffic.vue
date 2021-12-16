@@ -72,12 +72,11 @@ export default {
         let _this = this
         setInterval(function(){
           _this.run()
-        },3000)
+        },5000)
       });
   },
   methods:{
     run() {
-      alert('调用')
       this.axios
         .post("http://127.0.0.1:5000/routespeed", {'page':this.page})
         .then((res) => {
@@ -85,20 +84,21 @@ export default {
           var sp = res.data.route_speed;
           this.name = JSON.parse(na);
           this.speed = JSON.parse(sp);
-          this.myChart.setOption({
-            series: [
-              {
-                type: "bar",
-                data: this.speed,
-              },
-            ],
-            yAxis: {
-              data: this.name,
-            },
-          });
+          console.log(this.name)
+          console.log(this.speed)
+          console.log(this.page)
+          this.option.yAxis.data = this.name
+          this.option.series[0].data = this.speed
+          this.option&&this.myChart.setOption(this.option)
         })
         .then(()=>{
-           this.page = this.page+1
+          if(this.page > 47)
+          {
+            this.page = 1
+          }
+          else{
+            this.page = this.page+1
+          }
         });
     }
   },
@@ -111,6 +111,5 @@ export default {
   display: block;
   top: 0.1rem;
   height: 100%;
-  left: 3rem;
 }
 </style>
