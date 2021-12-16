@@ -11,8 +11,10 @@ export default {
 var chartDom = document.getElementById('contain');
 var myChart = echarts.init(chartDom);
 var option;
+var myChart= echarts.init(document.getElementById("contain"));
 
 option = {
+  color:['#FFF000'],
   xAxis: {
     type: 'category',
     boundaryGap: false,
@@ -28,17 +30,23 @@ option = {
     }
   },
   textStyle:{
-    color:"rgb(255,0,0)"
+    color:"#FF0000"
   },
   series: [
     {
       data: [0,1736, 1340, 7664, 9337, 11701, 8238],
       type: 'line',
-      areaStyle: {}
+      smooth:true,
+      symbol:'none',
+      areaStyle: {} 
     }
-  ]
+  ],
 };
-
+myChart.setOption(option);
+//监听页面的尺寸变化，动态改变echarts的尺寸
+ window.onresize = function () {
+     myChart.resize();
+ }
 myChart.setOption(option);
 
 }
