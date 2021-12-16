@@ -49,7 +49,7 @@
                 </div>
                 <div class="xpanel-wrapper xpanel-wrapper-30">
                     <div class="xpanel xpanel-r-m">
-                        <div class="title"></div>
+                        <wordcloud/>
                     </div>
                 </div>
                 <div class="xpanel-wrapper xpanel-wrapper-45">
@@ -71,6 +71,7 @@
     import trips from "../components/TripsLayer"
     import traffic from "../components/traffic.vue"
     import demo from "../components/demo.vue"
+    import wordcloud from "../components/wordcloud.vue"
     export default {
         components:{
             mapVisualization,
@@ -80,7 +81,8 @@
             trips,
             TripsLayerBMap,
             traffic,
-            demo
+            demo,
+            wordcloud
         },
         data(){
           return{
