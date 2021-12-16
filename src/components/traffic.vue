@@ -1,5 +1,12 @@
 <template>
-  <div id="main"></div>
+    <div id="main"></div>
+    <el-slider class="jam-slider" 
+    v-model="page"
+    :step="1"
+    show-input
+    max="48"
+    input-size="mini"
+    format-tooltip="show_time(page)"></el-slider>
 </template>
 
 <script>
@@ -60,7 +67,7 @@ export default {
             x: 100,
           },
           legend: {
-            show: true,
+            show: false,
           },
           animationDuration: 0,
           animationDurationUpdate: 3000,
@@ -84,9 +91,6 @@ export default {
           var sp = res.data.route_speed;
           this.name = JSON.parse(na);
           this.speed = JSON.parse(sp);
-          console.log(this.name)
-          console.log(this.speed)
-          console.log(this.page)
           this.option.yAxis.data = this.name
           this.option.series[0].data = this.speed
           this.option&&this.myChart.setOption(this.option)
@@ -100,16 +104,34 @@ export default {
             this.page = this.page+1
           }
         });
+    },
+    show_time(page){
+        var time = new Date(2018,5,1,0,0);
+        
     }
   },
 };
 </script>
 
 <style scoped>
+
 #main {
   position: relative;
   display: block;
-  top: 0.1rem;
+  top: 1rem;
+  height: 90%;
+  text-align: center;
+  line-height: 100%;
+}
+.jam-slider{
+  position: relative;
+  width: 90%;
+  top:-2rem;
+  left: 2rem;
+}
+canvas{
+  position: absolute;
+  width: 100%;
   height: 100%;
 }
 </style>

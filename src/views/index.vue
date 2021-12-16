@@ -1,16 +1,25 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-12-16 14:38:56
+ * @LastEditTime: 2021-12-16 19:46:29
+ * @LastEditors: Please set LastEditors
+ * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ * @FilePath: \Visualization\src\views\index.vue
+-->
 <template>
 <!--    <mapVisualization/>-->
     <trips/>
 <!--    <TripsLayerBMap/>-->
     <div class="header">
         <h1 class="header-title">交通</h1>
+        
     </div>
     <div class="wrapper">
         <div class="content">
             <div class="col col-l">
                 <div class="xpanel-wrapper xpanel-wrapper-40">
                     <div class="xpanel xpanel-l-t">
-                        <timeSelect class="title"/>
+                        
                         <pie/>
                     </div>
                 </div>
@@ -35,7 +44,7 @@
             <div class="col col-r">
                 <div class="xpanel-wrapper xpanel-wrapper-25">
                     <div class="xpanel xpanel-r-t">
-                        <div class="title"></div>
+                        <timeSelect class="title"/>
                     </div>
                 </div>
                 <div class="xpanel-wrapper xpanel-wrapper-30">
@@ -50,6 +59,7 @@
                 </div>
             </div>
         </div>
+        
     </div>
 </template>
 <script>
