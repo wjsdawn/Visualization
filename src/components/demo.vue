@@ -1,6 +1,6 @@
 <template>
     <div id="contain">
-    dsfdsgfsdgdfg
+    
     </div>
 </template>
 
