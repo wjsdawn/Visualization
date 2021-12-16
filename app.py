@@ -68,8 +68,10 @@ def send_data():
 @app.route('/routespeed', methods=['GET', 'POST'])
 @cross_origin()
 def routespeed():
-    print(request.get_json())
-    data = pandas.read_csv('./GH/route_speed.csv', encoding='utf-8')
+    page = request.get_json()['page']
+    csv = "./GH/30route/"+str(page)+".csv"
+    print(csv)
+    data = pandas.read_csv(csv, encoding='utf-8')
     route_name = data['route']
     speed = data['speed']
     arr_name = route_name.to_json(orient="values")
