@@ -10,7 +10,7 @@ pd = pandas.read_csv("./routename.txt", delimiter=' ', encoding='utf-8')
 
 
 begin =datetime(2018, 5, 1, 0, 0, 0)
-end = datetime(2018, 5, 1, 0, 30, 0)
+end = datetime(2018, 5, 1, 1, 0, 0)
 
 
 def deliver(plow, phigh, name):
@@ -46,10 +46,10 @@ def deliver(plow, phigh, name):
     return car_flow
 
 
-for i in range(1, 49):
+for i in range(1, 25):
     first = int(time.mktime(time.strptime(begin.strftime("%Y-%m-%d %H:%M:%S"), "%Y-%m-%d %H:%M:%S")))
     sec = int(time.mktime(time.strptime(end.strftime("%Y-%m-%d %H:%M:%S"), "%Y-%m-%d %H:%M:%S")))
     deliver(first, sec, i)
-    begin = begin+timedelta(minutes=30)
-    end = end+timedelta(minutes=30)
+    begin = begin+timedelta(hours=1)
+    end = end+timedelta(hours=1)
 
