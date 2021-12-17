@@ -1,30 +1,45 @@
 <template>
-    <div id="main"></div>
-    <el-slider class="jam-slider" 
-    v-model="page"
-    :step="1"
-    show-input
-    max="48"
-    input-size="mini"
-    format-tooltip="show_time(page)"></el-slider>
+    <div id="main" @click="()=>{this.$store.state.pauseFlag=this.$store.state.pauseFlag? false:true}"></div>
+    <timeslider></timeslider>
 </template>
 
 <script>
 import * as echarts from "echarts";
 import { Right } from "@element-plus/icons";
+import timeslider from "./TimeSlider.vue"
 export default {
   data() {
     return {
-      page: 1,
       name: [],
       speed: [],
       myChart: Object,
       option: {},
+      interval_id:""
     };
+  },
+  components: {
+      timeslider,
+  },
+  computed:{
+      pauseStateLin(){
+        return this.$store.state.pauseFlag
+      },
+      reflashData(){
+        return this.$store.state.reqdata
+      }
+  },
+  watch:{
+      pauseStateLin(){
+        this.pause()
+      },
+      reflashData(newValue,oldValue){
+        if(newValue)
+        this.run()
+      }
   },
   mounted() {
     this.axios
-      .post("http://127.0.0.1:5000/routespeed", { 'page': this.page })
+      .post("http://127.0.0.1:5000/routespeed", { 'page': this.$store.state.page })
       .then((res) => {
         var na = res.data.route_name;
         var sp = res.data.route_speed;
@@ -42,7 +57,7 @@ export default {
             inverse: true,
             animationDuration: 300,
             animationDurationUpdate: 300,
-            max: 20,
+            max: 15,
             label: {
               show: true,
             }, // only the largest 3 bars will be displayed
@@ -77,7 +92,7 @@ export default {
         this.myChart.setOption(this.option);
       }).then(()=>{
         let _this = this
-        setInterval(function(){
+        this.interval_id = setInterval(function(){
           _this.run()
         },5000)
       });
@@ -85,7 +100,7 @@ export default {
   methods:{
     run() {
       this.axios
-        .post("http://127.0.0.1:5000/routespeed", {'page':this.page})
+        .post("http://127.0.0.1:5000/routespeed", {'page':this.$store.state.page})
         .then((res) => {
           var na = res.data.route_name;
           var sp = res.data.route_speed;
@@ -96,18 +111,29 @@ export default {
           this.option&&this.myChart.setOption(this.option)
         })
         .then(()=>{
-          if(this.page > 47)
+          if(this.$store.state.page > 23)
           {
-            this.page = 1
+            this.$store.state.page = 1
           }
           else{
-            this.page = this.page+1
+            this.$store.state.page = this.$store.state.page + 1
           }
         });
     },
-    show_time(page){
-        var time = new Date(2018,5,1,0,0);
-        
+    pause(){
+      alert("调用pause")
+      if(this.$store.state.pauseFlag)
+      {   
+        clearInterval(this.interval_id)
+      }
+      else
+      {
+        let _this = this
+        this.$store.state.reqdata = false
+        this.interval_id = setInterval(function(){
+            _this.run()
+        },5000)
+      }
     }
   },
 };
@@ -122,12 +148,6 @@ export default {
   height: 90%;
   text-align: center;
   line-height: 100%;
-}
-.jam-slider{
-  position: relative;
-  width: 90%;
-  top:-2rem;
-  left: 2rem;
 }
 canvas{
   position: absolute;

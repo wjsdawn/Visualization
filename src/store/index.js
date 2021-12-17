@@ -7,7 +7,10 @@ export default createStore({
       start:7,
       end:8
     },
+    page:1,
+    pauseFlag:false,
     timeFlag:0,
+    reqdata:false,
     timeJson:{
 
     },
