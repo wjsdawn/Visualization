@@ -46,10 +46,25 @@ def deliver(plow, phigh, name):
     return car_flow
 
 
-for i in range(1, 25):
-    first = int(time.mktime(time.strptime(begin.strftime("%Y-%m-%d %H:%M:%S"), "%Y-%m-%d %H:%M:%S")))
-    sec = int(time.mktime(time.strptime(end.strftime("%Y-%m-%d %H:%M:%S"), "%Y-%m-%d %H:%M:%S")))
-    deliver(first, sec, i)
-    begin = begin+timedelta(hours=1)
-    end = end+timedelta(hours=1)
+def merge():
+    df = pandas.read_csv("./30route/1.csv", delimiter=",", encoding="utf-8")
+    df.rename(columns={'Unnamed: 0':'time_range'}, inplace=True)
+    df['time_range'] = 1
+    print(df)
+    for i in range(2, 25):
+        filename = "./30route/"+str(i)+".csv"
+        pd = pandas.read_csv(filename, delimiter=",", encoding="utf-8")
+        pd.rename(columns={'Unnamed: 0':'time_range'}, inplace=True)
+        pd['time_range'] = i
+        df = pandas.concat([df, pd])
+    df.to_csv('./30route/allroute.txt', index=None)
+
+
+merge()
+# for i in range(1, 25):
+#     first = int(time.mktime(time.strptime(begin.strftime("%Y-%m-%d %H:%M:%S"), "%Y-%m-%d %H:%M:%S")))
+#     sec = int(time.mktime(time.strptime(end.strftime("%Y-%m-%d %H:%M:%S"), "%Y-%m-%d %H:%M:%S")))
+#     deliver(first, sec, i)
+#     begin = begin+timedelta(hours=1)
+#     end = end+timedelta(hours=1)
 
