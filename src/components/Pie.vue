@@ -1,123 +1,65 @@
 <template>
-  <div class="container">
-    <svg id="svg"></svg>
+  <div id="hotmap">
   </div>
 </template>
 <script>
-import * as d3 from "d3";
+import * as echarts from "echarts";
 import { AxiosInstance as axios } from "axios";
 export default {
   data() {},
   mounted() {
-    let svg = d3.select("#svg");
-    let width = +svg.attr("width");
-    let height = +svg.attr("height");
-    width = 400
-    height = 300
-    let nodesData = [
-      { name: "Lillian", sex: "F" },
-      { name: "Gordon", sex: "M" },
-      { name: "Sylvester", sex: "M" },
-      { name: "Mary", sex: "F" },
-      { name: "Helen", sex: "F" },
-      { name: "Jamie", sex: "M" },
-      { name: "Jessie", sex: "F" },
-      { name: "Ashton", sex: "M" },
-      { name: "Duncan", sex: "M" },
-      { name: "Evette", sex: "F" },
-      { name: "Mauer", sex: "M" },
-      { name: "Fray", sex: "F" },
-      { name: "Duke", sex: "M" },
-      { name: "Baron", sex: "M" },
-      { name: "Infante", sex: "M" },
-      { name: "Percy", sex: "M" },
-      { name: "Cynthia", sex: "F" },
-    ];
+    var chartDom = document.getElementById("hotmap");
+    var myChart = echarts.init(chartDom);
+    var option;
 
-    let linksData = [
-      { source: "Sylvester", target: "Gordon", type: "A" },
-      { source: "Sylvester", target: "Lillian", type: "A" },
-      { source: "Sylvester", target: "Mary", type: "A" },
-      { source: "Sylvester", target: "Jamie", type: "A" },
-      { source: "Sylvester", target: "Jessie", type: "A" },
-      { source: "Sylvester", target: "Helen", type: "A" },
-      { source: "Helen", target: "Gordon", type: "A" },
-      { source: "Mary", target: "Lillian", type: "A" },
-      { source: "Ashton", target: "Mary", type: "A" },
-      { source: "Duncan", target: "Jamie", type: "A" },
-      { source: "Gordon", target: "Jessie", type: "A" },
-      { source: "Sylvester", target: "Fray", type: "E" },
-      { source: "Fray", target: "Mauer", type: "A" },
-      { source: "Fray", target: "Cynthia", type: "A" },
-      { source: "Fray", target: "Percy", type: "A" },
-      { source: "Percy", target: "Cynthia", type: "A" },
-      { source: "Infante", target: "Duke", type: "A" },
-      { source: "Duke", target: "Gordon", type: "A" },
-      { source: "Duke", target: "Sylvester", type: "A" },
-      { source: "Baron", target: "Duke", type: "A" },
-      { source: "Baron", target: "Sylvester", type: "E" },
-      { source: "Evette", target: "Sylvester", type: "E" },
-      { source: "Cynthia", target: "Sylvester", type: "E" },
-      { source: "Cynthia", target: "Jamie", type: "E" },
-      { source: "Mauer", target: "Jessie", type: "E" },
-    ];
-
-    let simulation = d3.forceSimulation().nodes(nodesData);
-
-    simulation
-      .force("charge_force", d3.forceManyBody())
-      .force("center_force", d3.forceCenter(width / 2, height / 2));
-    let node = svg
-      .append("g")
-      .attr("class", "nodes")
-      .selectAll("circle")
-      .data(nodesData)
-      .enter()
-      .append("circle")
-      .attr("r", 10)
-      .attr("fill", this.circleColor);
-
-    simulation.on("tick", tickAction);
-
-    function tickAction() {
-      node
-        .attr("cx", (d) => {
-          return d.x;
-        })
-        .attr("cy", (d) => {
-          return d.y;
-        });
-
-      link
-        .attr("x1", (d) => {
-          return d.source.x;
-        })
-        .attr("y1", (d) => {
-          return d.source.y;
-        })
-        .attr("x2", (d) => {
-          return d.target.x;
-        })
-        .attr("y2", (d) => {
-          return d.target.y;
-        });
+    function getVirtulData(year) {
+      year = year || "2017";
+      var date = +echarts.number.parseDate(year + "-01-01");
+      var end = +echarts.number.parseDate(+year + 1 + "-01-01");
+      var dayTime = 3600 * 24 * 1000;
+      var data = [];
+      for (var time = date; time < end; time += dayTime) {
+        data.push([
+          echarts.format.formatTime("yyyy-MM-dd", time),
+          Math.floor(Math.random() * 10000),
+        ]);
+      }
+      return data;
     }
+    option = {
+      title: {
+        top: 30,
+        left: "center",
+        text: "Daily Step Count",
+      },
+      tooltip: {},
+      visualMap: {
+        min: 0,
+        max: 10000,
+        type: "piecewise",
+        orient: "horizontal",
+        left: "center",
+        top: 65,
+      },
+      calendar: {
+        top: 120,
+        left: 30,
+        right: 30,
+        cellSize: ["auto", 13],
+        range: "2016",
+        itemStyle: {
+          borderWidth: 0.5,
+        },
+        yearLabel: { show: false },
+      },
+      series: {
+        type: "heatmap",
+        coordinateSystem: "calendar",
+        data: getVirtulData("2016"),
+      },
+    };
 
-    let linkForce = d3.forceLink(linksData).id((d) => {
-      return d.name;
-    });
-
-    simulation.force("links", linkForce);
-
-    let link = svg
-      .append("g")
-      .attr("class", "links")
-      .selectAll("line")
-      .data(linksData)
-      .enter()
-      .append("line")
-      .attr("stroke-width", 2)
-      .style("stroke", this.linkColor);
+    option && myChart.setOption(option);
   },
   methods: {
     circleColor(d) {
@@ -138,24 +80,7 @@ export default {
 };
 </script>
 <style scoped>
-#svg {
-  display: block;
-  height: 98%;
-  width: 98%;
-  border: 1px solid #ccc;
-}
-</style>
-<style>
-.links line {
-  stroke: #999;
-  stroke-opacity: 0.6;
-}
-.nodes circle {
-  stroke: #fff;
-  stroke-width: 1.5px;
-}
-.container {
-  padding: 0;
+#hotmap{
   display: block;
   height: 100%;
 }

@@ -34,13 +34,14 @@ export default {
   },
   computed:{
       pageChange(){
+          console.log(this.$store.state.page)
           return this.$store.state.page
       }
   },
   watch:{
       pageChange(newValue,oldValue){
-          var endTime = new Date(2018,5,1,Math.floor((newValue*60)/60),(newValue*60)%60,0)
-          var startTime = new Date(2018,5,1,Math.floor(((newValue-1)*60)/60),((newValue-1)*60)%60,0)
+          var endTime = new Date(2018,5,1,newValue,0,0)
+          var startTime = new Date(2018,5,1,newValue-1,0,0)
           this.value[0] = startTime
           this.value[1] = endTime
           console.log(this.value)
@@ -58,8 +59,9 @@ export default {
       return result;
     },
     timeSelect(val){
+        console.log(val[1].getHours())
         this.$store.state.page = val[1].getHours()
-        this.$store.state.reqdata = true
+        this.$store.state.reqdata = val[1].getHours()
     },
     pauseSate(){
         this.$store.state.pauseFlag = true

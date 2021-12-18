@@ -1,3 +1,11 @@
+/*
+ * @Author: your name
+ * @Date: 2021-12-16 14:38:56
+ * @LastEditTime: 2021-12-18 14:54:47
+ * @LastEditors: your name
+ * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ * @FilePath: \Visualization\src\store\index.js
+ */
 import { createStore } from 'vuex'
 
 export default createStore({
@@ -10,7 +18,7 @@ export default createStore({
     page:1,
     pauseFlag:false,
     timeFlag:0,
-    reqdata:false,
+    reqdata:0,
     timeJson:{
 
     },

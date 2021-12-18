@@ -1,3 +1,11 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-12-16 22:32:20
+ * @LastEditTime: 2021-12-18 16:53:57
+ * @LastEditors: your name
+ * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ * @FilePath: \Visualization\src\views\index.vue
+-->
 <template>
 <!--    <mapVisualization/>-->
     <trips/>
@@ -11,7 +19,6 @@
             <div class="col col-l">
                 <div class="xpanel-wrapper xpanel-wrapper-40">
                     <div class="xpanel xpanel-l-t">
-                        
                         <pie/>
                     </div>
                 </div>

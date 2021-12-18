@@ -32,9 +32,9 @@ export default {
       pauseStateLin(){
         this.pause()
       },
-      reflashData(newValue,oldValue){
-        if(newValue)
-        this.run()
+      reflashData(){
+          alert("状态改变")
+          this.run()
       }
   },
   mounted() {
@@ -93,12 +93,20 @@ export default {
       }).then(()=>{
         let _this = this
         this.interval_id = setInterval(function(){
-          _this.run()
+          _this.run().then(()=>{
+          if(_this.$store.state.page > 23)
+          {
+            _this.$store.state.page = 1
+          }
+          else{
+            _this.$store.state.page = _this.$store.state.page + 1
+          }
+        });
         },5000)
       });
   },
   methods:{
-    run() {
+    async run() {
       this.axios
         .post("http://127.0.0.1:5000/routespeed", {'page':this.$store.state.page})
         .then((res) => {
@@ -110,15 +118,6 @@ export default {
           this.option.series[0].data = this.speed
           this.option&&this.myChart.setOption(this.option)
         })
-        .then(()=>{
-          if(this.$store.state.page > 23)
-          {
-            this.$store.state.page = 1
-          }
-          else{
-            this.$store.state.page = this.$store.state.page + 1
-          }
-        });
     },
     pause(){
       alert("调用pause")
@@ -131,7 +130,15 @@ export default {
         let _this = this
         this.$store.state.reqdata = false
         this.interval_id = setInterval(function(){
-            _this.run()
+            _this.run().then(()=>{
+          if(_this.$store.state.page > 23)
+          {
+            _this.$store.state.page = 1
+          }
+          else{
+            _this.$store.state.page = _this.$store.state.page + 1
+          }
+        });
         },5000)
       }
     }
