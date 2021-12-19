@@ -96,7 +96,10 @@ body {margin:0 auto;min-width:375px;max-width:1920px;}
 }
 .xpanel-l-t {background-image:url("../img/panel-l-t.png");}
 .xpanel-l-b {background-image:url("../img/panel-l-b.png");}
-.xpanel-c-b {background-image:url("../img/panel-c-b.png");}
+.xpanel-c-b {
+	background-image:url("../img/panel-c-b.png");
+	text-align: center;
+}
 .xpanel-r-t {background-image:url("../img/panel-r-t.png");}
 .xpanel-r-m {background-image:url("../img/panel-r-m.png");}
 .xpanel-r-b {background-image:url("../img/panel-r-b.png");}

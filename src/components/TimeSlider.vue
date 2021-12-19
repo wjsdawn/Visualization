@@ -1,3 +1,11 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-12-17 15:11:35
+ * @LastEditTime: 2021-12-19 21:21:55
+ * @LastEditors: Please set LastEditors
+ * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ * @FilePath: \Visualization\src\components\TimeSlider.vue
+-->
 <template>
   <el-row>
     <el-col :span="24">
@@ -5,6 +13,7 @@
         <el-time-picker
           is-range
           v-model="value"
+          size = "mini"
           range-separator="to"
           start-placeholder="开始时间"
           end-placeholder="结束时间"
@@ -75,6 +84,7 @@ export default {
   margin-bottom: 20px;
 }
 .el-col {
+  margin-bottom: 20px;
   border-radius: 4px;
   padding-left: 5rem;
 }
