@@ -1,7 +1,11 @@
 <!--
  * @Author: your name
  * @Date: 2021-12-16 14:38:56
- * @LastEditTime: 2021-12-19 21:54:21
+<<<<<<< HEAD
+ * @LastEditTime: 2021-12-19 22:07:42
+=======
+ * @LastEditTime: 2021-12-19 20:48:05
+>>>>>>> ff012e2678abfdd3c2f34145e1d2c88c848f2f34
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \Visualization\src\components\TimeSelect.vue
@@ -55,7 +59,5 @@
 #timeselect{
     position: absolute;
     top: 5rem;
-    margin-top:500px;
-    
 }
 </style>
