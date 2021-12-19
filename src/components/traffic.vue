@@ -60,7 +60,10 @@ export default {
             max: 15,
             label: {
               show: true,
-            }, // only the largest 3 bars will be displayed
+            },
+            axisLabel:{
+              fontSize:9
+            } // only the largest 3 bars will be displayed
           },
           series: [
             {
