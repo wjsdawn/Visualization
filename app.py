@@ -6,6 +6,7 @@ import pymongo
 import pickle
 import pandas
 from GH import MapMatching as matcher
+from GH import mapmatcher as mp
 import pandas as pd
 import time as tm
 
@@ -83,13 +84,15 @@ def routespeed():
     return res_json
 
 
-@app.route('/msg', methods=['GET', 'POST'])
+@app.route('/hours_speed', methods=['GET', 'POST'])
 @cross_origin()
-def getMsg():
+def hours_speed():
+    rn, hs = mp.sort('./GH/30route/allroute.txt')
     response = {
-        'msg': "hello"
+        'route_name': rn,
+        'speed_data': hs
     }
-    return response
+    return jsonify(response)
 
 
 @app.route('/send_test', methods=['GET', 'POST'])
