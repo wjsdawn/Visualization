@@ -83,7 +83,7 @@ def sort(filename):
     return route_name, all_data
 
 
-sort("./30route/allroute.txt")
+# sort("./30route/allroute.txt")
 # for i in range(1, 25):
 #     first = int(time.mktime(time.strptime(begin.strftime("%Y-%m-%d %H:%M:%S"), "%Y-%m-%d %H:%M:%S")))
 #     sec = int(time.mktime(time.strptime(end.strftime("%Y-%m-%d %H:%M:%S"), "%Y-%m-%d %H:%M:%S")))
