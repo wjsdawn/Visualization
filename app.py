@@ -178,7 +178,7 @@ def sendLocationGetOn():
     data = pd.read_table('output_wgs84_2.txt', header=None, encoding='gb2312', sep=',')
     for name, time1, time2, x1, y1, x2, y2 in zip(data[0], data[1], data[2], data[3], data[4], data[5], data[6]):
         features.append({'type': 'Feature',
-                         'properties': {'id': name, 'time': time},
+                         'properties': {'id': name, 'time': tm.time},
                          'geometry': {'type': 'Point', 'coordinates': [x1, y1]}
                          })
     response = {'type': 'FeatureCollection', 'features': features}
@@ -195,7 +195,7 @@ def sendLocationGetOff():
     data = pd.read_table('output_wgs84_2.txt', header=None, encoding='gb2312', sep=',')
     for name, time1, time2, x1, y1, x2, y2 in zip(data[0], data[1], data[2], data[3], data[4], data[5], data[6]):
         features.append({'type': 'Feature',
-                         'properties': {'id': name, 'time': time},
+                         'properties': {'id': name, 'time': tm.time},
                          'geometry': {'type': 'Point', 'coordinates': [x2, y2]}
                          })
     response = {'type': 'FeatureCollection', 'features': features}
