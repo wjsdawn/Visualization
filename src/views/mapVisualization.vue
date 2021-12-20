@@ -47,6 +47,7 @@
             this.map = new mapboxgl.Map({
                 container: 'container', // container id 绑定的组件的id
                 style: 'mapbox://styles/mapbox/dark-v10', //地图样式，可以使用官网预定义的样式,也可以自定义
+                // style:'mapbox://styles/wjs222/ckxebui5g5qj115oi9zfyhmng',
                 center: [104.040847,30.466655],
                 zoom: 12,     // starting zoom 地图初始的拉伸比例
                 pitch: 0,  //地图的角度，不写默认是0，取值是0-60度，一般在3D中使用
@@ -70,10 +71,10 @@
                         // console.log(this.$store.state.time)
                         console.log("数据读取成功")
                         resolve(this.heatSource)
-                        this.axios.post('http://127.0.0.1:5000/pie').then(r=>{
-                            this.$store.commit('ChangeTimeJson',r)
-                            this.$store.commit('ChangePieFlag')
-                        })
+                        // this.axios.post('http://127.0.0.1:5000/pie').then(r=>{
+                        //     this.$store.commit('ChangeTimeJson',r)
+                        //     this.$store.commit('ChangePieFlag')
+                        // })
                     });
                 })
 
