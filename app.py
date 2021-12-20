@@ -8,6 +8,7 @@ import pandas
 from GH import MapMatching as matcher
 import pandas as pd
 import time as tm
+import base64
 
 client = pymongo.MongoClient(host='localhost', port=27017)
 db = client.CarRoute
@@ -15,6 +16,17 @@ collection = db.get_collection("cars")
 carPie = {}
 
 app = Flask(__name__)
+
+
+@app.route('/worldcolud', methods=['GET', 'POST'])
+@cross_origin()
+def worldcolud():
+    with open("F:\\visPro\\server\\Visualization\\GH\\wordcloud.png", "rb") as f:
+        # b64encode是编码，b64decode是解码
+        base64_data = base64.b64encode(f.read())
+        # base64.b64decode(base64data)
+        return base64_data
+        print(base64_data)
 
 
 @app.route('/')
@@ -69,7 +81,7 @@ def send_data():
 @cross_origin()
 def routespeed():
     page = request.get_json()['page']
-    csv = "./GH/30route/"+str(page)+".csv"
+    csv = "./GH/30route/" + str(page) + ".csv"
     print(csv)
     data = pandas.read_csv(csv, encoding='utf-8')
     route_name = data['route']
@@ -145,7 +157,8 @@ def sendCarsLine():
                     carPie[str(tm.localtime(time).tm_hour) + ":00~" + str(tm.localtime(time).tm_hour + 1) + ":00"] = 1
                 else:
                     carPie[str(tm.localtime(time).tm_hour) + ":00~" + str(tm.localtime(time).tm_hour + 1) + ":00"] \
-                        = carPie[str(tm.localtime(time).tm_hour) + ":00~" + str(tm.localtime(time).tm_hour + 1) + ":00"] + 1
+                        = carPie[str(tm.localtime(time).tm_hour) + ":00~" + str(
+                        tm.localtime(time).tm_hour + 1) + ":00"] + 1
                 last_name = name
                 carLines.append(lines)
                 lines = []
