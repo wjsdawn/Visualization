@@ -70,7 +70,7 @@ def send_data():
 @cross_origin()
 def routespeed():
     page = request.get_json()['page']
-    csv = "./GH/30route/"+str(page)+".csv"
+    csv = "./GH/30route/" + str(page) + ".csv"
     print(csv)
     data = pandas.read_csv(csv, encoding='utf-8')
     route_name = data['route']
@@ -148,7 +148,8 @@ def sendCarsLine():
                     carPie[str(tm.localtime(time).tm_hour) + ":00~" + str(tm.localtime(time).tm_hour + 1) + ":00"] = 1
                 else:
                     carPie[str(tm.localtime(time).tm_hour) + ":00~" + str(tm.localtime(time).tm_hour + 1) + ":00"] \
-                        = carPie[str(tm.localtime(time).tm_hour) + ":00~" + str(tm.localtime(time).tm_hour + 1) + ":00"] + 1
+                        = carPie[str(tm.localtime(time).tm_hour) + ":00~" + str(
+                        tm.localtime(time).tm_hour + 1) + ":00"] + 1
                 last_name = name
                 carLines.append(lines)
                 lines = []
@@ -156,6 +157,39 @@ def sendCarsLine():
     del carLines[0]
     return jsonify(carLines)
 
+
+@app.route('/sendLocationGetOn', methods=['GET', 'POST'])
+@cross_origin()
+def sendLocationGetOn():
+    features = []
+    # 将时间匹配的数据返回前端
+    data = pd.read_table('output_wgs84_2.txt', header=None, encoding='gb2312', sep=',')
+    for name, time1, time2, x1, y1, x2, y2 in zip(data[0], data[1], data[2], data[3], data[4], data[5], data[6]):
+        features.append({'type': 'Feature',
+                         'properties': {'id': name, 'time': time},
+                         'geometry': {'type': 'Point', 'coordinates': [x1, y1]}
+                         })
+    response = {'type': 'FeatureCollection', 'features': features}
+    # df = pd.DataFrame(response)
+    # df.to_json('test.txt')
+    return response
+
+
+@app.route('/sendLocationGetOff', methods=['GET', 'POST'])
+@cross_origin()
+def sendLocationGetOff():
+    features = []
+    # 将时间匹配的数据返回前端
+    data = pd.read_table('output_wgs84_2.txt', header=None, encoding='gb2312', sep=',')
+    for name, time1, time2, x1, y1, x2, y2 in zip(data[0], data[1], data[2], data[3], data[4], data[5], data[6]):
+        features.append({'type': 'Feature',
+                         'properties': {'id': name, 'time': time},
+                         'geometry': {'type': 'Point', 'coordinates': [x2, y2]}
+                         })
+    response = {'type': 'FeatureCollection', 'features': features}
+    # df = pd.DataFrame(response)
+    # df.to_json('test.txt')
+    return response
 
 @app.route('/Pie', methods=['GET', 'POST'])
 @cross_origin()
