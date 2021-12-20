@@ -66,7 +66,7 @@
                     carLines.push(temp)
                 }
                 var dataLines = carLines.map(function (data,idx) {
-                    let hStep = 20 / (data.length - 1);
+                    let hStep = 10 / (data.length - 1);
                     return {
                         coords: data,
                         lineStyle: {
@@ -82,9 +82,10 @@
                         pitch: 50,
                         bearing: -10,
                         style: 'mapbox://styles/mapbox/dark-v9',
+                        // style:'mapbox://styles/wjs222/ckxectg0t7qbo15qu2t2v7fc7',
                         postEffect: {
                             enable: true
-                        }
+                        },
                     },
                     series: [{
                         type: 'lines3D',
@@ -212,7 +213,7 @@
     width: 100%;
     height: 100%;
     position: absolute;
-    z-index: 1;
+    z-index: 0;
 }
 .is-loading{
     position: absolute;
