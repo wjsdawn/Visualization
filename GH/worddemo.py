@@ -12,7 +12,7 @@ wordcloud = WordCloud(
     # 设置字体，不然会出现口字乱码，文字的路径是电脑的字体一般路径，可以换成别的
     font_path="C:/Windows/Fonts/simfang.ttf",
     # 设置了背景，宽高
-    background_color="white", width=2200, height=1150).generate(cut_text)
+    background_color="white", width=2200, height=1000).generate(cut_text)
 
 plt.imshow(wordcloud, interpolation="bilinear")
 wordcloud.to_file(r"wordcloud.png")
