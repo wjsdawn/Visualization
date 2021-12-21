@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-12-17 15:11:35
- * @LastEditTime: 2021-12-19 21:21:55
+ * @LastEditTime: 2021-12-21 17:45:27
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \Visualization\src\components\TimeSlider.vue
@@ -43,7 +43,6 @@ export default {
   },
   computed:{
       pageChange(){
-          console.log(this.$store.state.page)
           return this.$store.state.page
       }
   },
@@ -53,7 +52,6 @@ export default {
           var startTime = new Date(2018,5,1,newValue-1,0,0)
           this.value[0] = startTime
           this.value[1] = endTime
-          console.log(this.value)
       }
   },
   mounted() {
@@ -68,7 +66,6 @@ export default {
       return result;
     },
     timeSelect(val){
-        console.log(val[1].getHours())
         this.$store.state.page = val[1].getHours()
         this.$store.state.reqdata = val[1].getHours()
     },

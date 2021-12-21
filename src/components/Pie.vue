@@ -49,6 +49,18 @@ export default {
       option = {
       tooltip: {
         position: "top",
+        trigger: 'item',
+        formatter: function (params) {
+            var htmlStr ='<div>';
+            htmlStr += params.name + '<br/>';//x轴的名称
+            //为了保证和原来的效果一样，这里自己实现了一个点的效果
+            htmlStr += '<span ></span>';
+            //添加一个汉字，这里你可以格式你的数字或者自定义文本内容
+            var pos = params.data[1]
+            htmlStr += routes[pos] + '：'+params.value; 
+            htmlStr += '</div>';
+            return htmlStr;
+        }
       },
       grid: {
         height: "91%",
@@ -97,7 +109,7 @@ export default {
       },
       series: [
         {
-          name: "Punch Card",
+          name: "card",
           type: "heatmap",
           data: datas,
           label: {
