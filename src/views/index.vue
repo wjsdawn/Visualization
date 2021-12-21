@@ -16,8 +16,11 @@
 <!--    <TripsLayerBMap/>-->
     <div class="header">
         <h1 class="header-title">交通</h1>
-        
     </div>
+    <div style="text-align: center">
+        <timeSelect class="title" style="z-index: 1;marigin-left:50%" />
+    </div>
+
     <div class="wrapper">
         <div class="content">
             <div class="col col-l">
@@ -40,7 +43,7 @@
                 </div>
                 <div class="xpanel-wrapper xpanel-wrapper-25" style="z-index: 2">
                     <div class="xpanel xpanel-c-b" style="">
-                        <timeSelect class="title" style="margin-top:20%;z-index: 1;" />
+<!--                        <timeSelect class="title" style="margin-top:20%;z-index: 1;" />-->
                     </div>
                 </div>
             </div>

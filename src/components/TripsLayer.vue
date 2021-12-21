@@ -1,7 +1,7 @@
 <template>
     <div id="Trips">
-        <el-icon class="is-loading" color="white" size="100px" v-show="this.$store.state.map_status==1">
-            <loading />
+        <el-icon class="is-loading" color="white" size="100px" v-show="this.$store.state.map_status==1" style="z-index: 999;">
+            <loading style="z-index: 999;"/>
         </el-icon>
     </div>
 </template>
@@ -29,6 +29,7 @@
         watch:{
             "$store.state.timeFlag"(){
                 this.$store.commit("ChangeMapStatue",1)
+                console.log(this.$store.state.map_status)
                 this.getSource().then(res=>{
                     $("#Trips").removeAttr("_echarts_instance_").empty()
                     // d3.selectAll("#Trips>*").remove()
@@ -213,7 +214,7 @@
     width: 100%;
     height: 100%;
     position: absolute;
-    z-index: 0;
+    z-index: 1;
 }
 .is-loading{
     position: absolute;
