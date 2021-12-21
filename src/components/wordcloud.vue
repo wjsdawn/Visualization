@@ -1,6 +1,5 @@
 <template>
-  <div>
-  
+  <div >
     <el-image :src="srcdata"></el-image>
     <!-- <img :src="data:image/jpg;base64,这里是base64的编码"/> -->
   </div>
