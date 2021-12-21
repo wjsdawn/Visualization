@@ -22,7 +22,7 @@ app = Flask(__name__)
 @app.route('/worldcolud', methods=['GET', 'POST'])
 @cross_origin()
 def worldcolud():
-    with open("./GH/30route/wordcloud.png", "rb") as f:
+    with open("./GH/wordcloud.png", "rb") as f:
         # b64encode是编码，b64decode是解码
         base64_data = base64.b64encode(f.read())
         # base64.b64decode(base64data)
