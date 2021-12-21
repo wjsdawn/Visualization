@@ -161,15 +161,20 @@ def get_car_msg(points):
         return False
 
 
-def matching_street_name(arr_points,ak):
+def matching_street_name(arr_points, ak):
     url = "https://api.map.baidu.com/reverse_geocoding/v3/?"
+    fp = open("./bflow.txt", 'a', encoding="utf-8")
+    i = 0
     for point in arr_points:
         data = {'ak': ak, 'output': 'json', 'coordtype': 'gcj02ll', 'extensions_road': True,
-                'location': str(point[3]) + "," + str(point[2])}
+                'location': str(point[2]) + "," + str(point[1])}
         response = requests.get(url, params=data)
         try:
             res_json = response.json()
             point.append(res_json['result']['formatted_address'])
+            fp.write(str(point[0])+","+str(point[1])+","+str(point[2])+","+str(point[3])+"\n")
+            i += 1
+            print(str(i)+":"+str(point))
         except KeyError:
             return False
     return True

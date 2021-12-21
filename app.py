@@ -22,17 +22,11 @@ app = Flask(__name__)
 @app.route('/worldcolud', methods=['GET', 'POST'])
 @cross_origin()
 def worldcolud():
-    with open("F:\\visPro\\server\\Visualization\\GH\\wordcloud.png", "rb") as f:
+    with open("./GH/30route/wordcloud.png", "rb") as f:
         # b64encode是编码，b64decode是解码
         base64_data = base64.b64encode(f.read())
         # base64.b64decode(base64data)
         return base64_data
-        print(base64_data)
-
-
-@app.route('/')
-def hello_world():
-    return 'Hello World!'
 
 
 @app.route('/send_data', methods=['GET', 'POST'])
@@ -86,7 +80,7 @@ def routespeed():
     print(csv)
     data = pandas.read_csv(csv, encoding='utf-8')
     route_name = data['route']
-    speed = data['speed']
+    speed = round(data['speed'], 2)
     arr_name = route_name.to_json(orient="values")
     arr_speed = speed.to_json(orient="values")
     res_json = {
@@ -202,6 +196,7 @@ def sendLocationGetOff():
     # df = pd.DataFrame(response)
     # df.to_json('test.txt')
     return response
+
 
 @app.route('/Pie', methods=['GET', 'POST'])
 @cross_origin()
